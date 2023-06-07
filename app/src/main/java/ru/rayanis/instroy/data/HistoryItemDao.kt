@@ -12,9 +12,6 @@ interface HistoryItemDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertItem(item: HistoryItem)
 
-    @Insert
-    suspend fun deleteItem(item: HistoryItem)
-
     @Query("SELECT * FROM history_item")
     fun getAllItems(): Flow<List<HistoryItem>>
 }
