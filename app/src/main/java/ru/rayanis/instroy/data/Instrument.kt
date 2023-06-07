@@ -6,12 +6,12 @@ import androidx.room.PrimaryKey
 @Entity(tableName = "instrument")
 data class Instrument(
     @PrimaryKey
-    val id: String? = null,
+    val id: Int? = null,
     val name: String,
     val instrumentInfo: String,
     val freeAmount: String,
     val maxAmount: String,
     val brokenAmount: Int,
     val decommissionAmount: Int,
-    var instrumentHistory: MutableList<HistItem> = mutableListOf()
+    var instrumentHistory: MutableList<HistoryItem> = mutableListOf()
 )

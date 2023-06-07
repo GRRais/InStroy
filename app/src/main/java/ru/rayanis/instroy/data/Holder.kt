@@ -6,12 +6,12 @@ import androidx.room.PrimaryKey
 @Entity(tableName = "holder")
 data class Holder(
     @PrimaryKey
-    val id: String? = null,
+    val id: Int? = null,
     val name: String,
     val phoneNumber: String,
     val email: String,
     val telegram: String,
     val whatsapp: String,
     val instrumentsOfHolder: ArrayList<String?> = arrayListOf(),
-    val holderHistory: MutableList<HistItem> = mutableListOf()
+    val holderHistory: MutableList<HistoryItem> = mutableListOf()
 )
