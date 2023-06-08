@@ -11,7 +11,5 @@ data class Holder(
     val phoneNumber: String,
     val email: String,
     val telegram: String,
-    val whatsapp: String,
-    val instrumentsOfHolder: ArrayList<String?> = arrayListOf(),
-    val holderHistory: MutableList<HistoryItem> = mutableListOf()
+    val whatsapp: String
 )

@@ -12,6 +12,5 @@ data class Instrument(
     val freeAmount: String,
     val maxAmount: String,
     val brokenAmount: Int,
-    val decommissionAmount: Int,
-    var instrumentHistory: MutableList<HistoryItem> = mutableListOf()
+    val decommissionAmount: Int
 )

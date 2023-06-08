@@ -13,7 +13,7 @@ import androidx.room.RoomDatabase
     exportSchema = true
 )
 
-abstract class MainDb : RoomDatabase {
+abstract class MainDb : RoomDatabase() {
     abstract val historyItemDao: HistoryItemDao
     abstract val holderDao: HolderDao
     abstract val instrumentDao: InstrumentDao

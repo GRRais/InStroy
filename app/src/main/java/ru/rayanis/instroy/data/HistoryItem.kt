@@ -7,7 +7,10 @@ import androidx.room.PrimaryKey
 data class HistoryItem(
     @PrimaryKey
     val id: Int? = null,
-    val name: String,
+    val holderName: String,
+    val holderId: Int,
+    val instrumentName: String,
+    val instrumentId: Int,
     val getTime: String,
     val getInstrumentInfo: String,
     val getQuantity: String,
