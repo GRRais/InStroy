@@ -11,12 +11,12 @@ interface HistoryItemDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertItem(item: HistoryItem)
 
-    @Query("SELECT * FROM history_item WHERE holderId = :holderId")
+    @Query("SELECT * FROM history_item_table WHERE holderId = :holderId")
     fun getAllHolderItemsById(holderId: Int): Flow<List<HistoryItem>>
 
-    @Query("SELECT * FROM history_item WHERE instrumentId = :instrumentId")
+    @Query("SELECT * FROM history_item_table WHERE instrumentId = :instrumentId")
     fun getAllInstrumentHistoryItemsById(instrumentId: Int): Flow<List<HistoryItem>>
 
-    @Query("SELECT * FROM history_item WHERE holderId = :holderId")
+    @Query("SELECT * FROM history_item_table WHERE holderId = :holderId")
     fun getAllHolderHistoryItemsById(holderId: Int): Flow<List<HistoryItem>>
 }

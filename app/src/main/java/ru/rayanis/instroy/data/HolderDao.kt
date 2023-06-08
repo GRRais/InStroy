@@ -15,6 +15,9 @@ interface HolderDao {
     @Delete
     suspend fun deleteItem(item: Holder)
 
-    @Query("SELECT * FROM holder")
+    @Query("SELECT * FROM holder_table")
     fun getAllItems(): Flow<List<Holder>>
+
+    @Query("SELECT * FROM holder_table WHERE id = :id")
+    fun getHolderById(id: Int): Holder
 }

@@ -3,7 +3,7 @@ package ru.rayanis.instroy.data
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
-@Entity(tableName = "history_item")
+@Entity(tableName = "history_item_table")
 data class HistoryItem(
     @PrimaryKey
     val id: Int? = null,
