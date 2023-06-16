@@ -94,7 +94,7 @@ fun UiInstrumentItem(
                     bottom.linkTo(card.bottom)
                     end.linkTo(card.end)
                 }
-                .padding(end = 5.dp)
+                .padding(end = 10.dp)
         ) {
             Text(
                 text = "08:15 - 21/05/23",
