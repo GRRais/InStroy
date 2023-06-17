@@ -21,7 +21,12 @@ class HoldersViewModel @Inject constructor(
                 viewModelScope.launch {
                     repository.insertItem(
                         Holder(
-
+                            holderItem?.id,
+                            "Ильназ",
+                            "+79393030000",
+                            "ilnaz@mail.ru",
+                            "@ilnaz99",
+                            "+79393030000"
                         )
                     )
                 }
@@ -30,7 +35,7 @@ class HoldersViewModel @Inject constructor(
 
             }
             is HoldersScreenEvents.onEditClick -> {
-
+                holderItem = event.item
             }
             is HoldersScreenEvents.onShowDeleteDialog -> {
 
