@@ -8,6 +8,8 @@ import kotlinx.coroutines.launch
 import ru.rayanis.instroy.data.Holder
 import ru.rayanis.instroy.data.HolderRepository
 import ru.rayanis.instroy.dialog.EditHolderDialogController
+import ru.rayanis.instroy.dialog.EditHolderDialogEvent
+import ru.rayanis.instroy.dialog.InstrumentStateChangeEvent
 import javax.inject.Inject
 
 @HiltViewModel
@@ -25,7 +27,7 @@ class HoldersViewModel @Inject constructor(
         private set
     override var phoneNumberTextField = mutableStateOf("")
         private set
-    override var emailNumberTextField = mutableStateOf("")
+    override var emailTextField = mutableStateOf("")
         private set
     override var telegramNicknameTextField = mutableStateOf("")
         private set
@@ -39,11 +41,11 @@ class HoldersViewModel @Inject constructor(
                     repository.insertItem(
                         Holder(
                             holderItem?.id,
-                            "Ильназ",
-                            "+79393030000",
-                            "ilnaz@mail.ru",
-                            "@ilnaz99",
-                            "+79393030000"
+                            nameTextField.value,
+                            phoneNumberTextField.value,
+                            emailTextField.value,
+                            telegramNicknameTextField.value,
+                            whatsappNumberTextField.value
                         )
                     )
                 }
@@ -55,6 +57,29 @@ class HoldersViewModel @Inject constructor(
                 holderItem = event.item
             }
             is HoldersScreenEvents.onShowDeleteDialog -> {
+
+            }
+        }
+    }
+
+    fun onEditHolderDialogEvent(event: EditHolderDialogEvent) {
+        when(event) {
+            is EditHolderDialogEvent.OnNameChange -> {
+
+            }
+            is EditHolderDialogEvent.OnPhoneNumberChange -> {
+
+            }
+            is EditHolderDialogEvent.OnEmailChange -> {
+
+            }
+            is EditHolderDialogEvent.OnTelegramNicknameChange -> {
+
+            }
+            is EditHolderDialogEvent.OnWhatsappNumberChange -> {
+
+            }
+            is EditHolderDialogEvent.OnSave -> {
 
             }
         }

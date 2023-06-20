@@ -7,7 +7,7 @@ interface EditHolderDialogController {
     val dialogTitle: MutableState<String>
     val nameTextField: MutableState<String>
     val phoneNumberTextField: MutableState<String>
-    val emailNumberTextField: MutableState<String>
+    val emailTextField: MutableState<String>
     val telegramNicknameTextField: MutableState<String>
     val whatsappNumberTextField: MutableState<String>
 }

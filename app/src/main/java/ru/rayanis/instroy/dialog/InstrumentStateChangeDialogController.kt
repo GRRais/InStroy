@@ -2,7 +2,7 @@ package ru.rayanis.instroy.dialog
 
 import androidx.compose.runtime.MutableState
 
-interface HistoryDialogController {
+interface InstrumentStateChangeDialogController {
     val openDialog: MutableState<Boolean>
     val dialogTitle: MutableState<String>
     val quantityText: MutableState<Int>

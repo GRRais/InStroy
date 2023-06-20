@@ -10,6 +10,6 @@ data class Holder(
     val name: String,
     val phoneNumber: String,
     val email: String,
-    val telegram: String,
-    val whatsapp: String
+    val telegramNickname: String,
+    val whatsappNumber: String
 )

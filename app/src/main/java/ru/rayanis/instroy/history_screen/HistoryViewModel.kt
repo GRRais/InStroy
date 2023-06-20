@@ -2,9 +2,9 @@ package ru.rayanis.instroy.history_screen
 
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
-import ru.rayanis.instroy.dialog.HistoryDialogController
+import ru.rayanis.instroy.dialog.InstrumentStateChangeDialogController
 
-class HistoryViewModel: ViewModel(), HistoryDialogController {
+class HistoryViewModel: ViewModel(), InstrumentStateChangeDialogController {
 
     override var openDialog = mutableStateOf(false)
         private set
