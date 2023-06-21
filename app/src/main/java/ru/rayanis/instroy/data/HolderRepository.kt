@@ -10,5 +10,5 @@ interface HolderRepository {
 
     fun getAllHolders(): Flow<List<Holder>>
 
-    fun getHolderById(id: Int): Holder
+    suspend fun getHolderById(id: Int): Holder
 }

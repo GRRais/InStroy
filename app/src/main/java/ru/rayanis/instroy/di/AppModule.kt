@@ -7,15 +7,17 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import ru.rayanis.instroy.data.HistoryItemRepImpl
+import ru.rayanis.instroy.data.HistoryItemRepository
 import ru.rayanis.instroy.data.HolderRepImpl
+import ru.rayanis.instroy.data.HolderRepository
 import ru.rayanis.instroy.data.InstrumentRepImpl
+import ru.rayanis.instroy.data.InstrumentRepository
 import ru.rayanis.instroy.data.MainDb
 import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
 object AppModule {
-
     @Provides
     @Singleton
     fun provideMainDb(app: Application): MainDb {
@@ -28,19 +30,19 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun provideHolderRepo(db: MainDb): HolderRepImpl{
+    fun provideHolderRepo(db: MainDb): HolderRepository{
         return HolderRepImpl(db.holderDao)
     }
 
     @Provides
     @Singleton
-    fun provideInstrumentRepo(db: MainDb): InstrumentRepImpl{
+    fun provideInstrumentRepo(db: MainDb): InstrumentRepository{
         return InstrumentRepImpl(db.instrumentDao)
     }
 
     @Provides
     @Singleton
-    fun provideHistoryItemRepo(db: MainDb): HistoryItemRepImpl{
+    fun provideHistoryItemRepo(db: MainDb): HistoryItemRepository{
         return HistoryItemRepImpl(db.historyItemDao)
     }
 }

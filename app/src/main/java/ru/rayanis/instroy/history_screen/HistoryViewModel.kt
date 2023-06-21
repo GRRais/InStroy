@@ -15,7 +15,6 @@ import javax.inject.Inject
 
 @HiltViewModel
 class HistoryViewModel @Inject constructor(
-    private val context: Application,
     private val repository: HistoryItemRepository
 ): ViewModel(), InstrumentStateChangeDialogController{
 

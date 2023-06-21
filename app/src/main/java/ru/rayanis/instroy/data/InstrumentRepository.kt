@@ -12,5 +12,5 @@ interface InstrumentRepository {
 
     fun getAllItems(): Flow<List<Instrument>>
 
-    fun getInstrumentById(id: Int): Instrument
+    suspend fun getInstrumentById(id: Int): Instrument
 }

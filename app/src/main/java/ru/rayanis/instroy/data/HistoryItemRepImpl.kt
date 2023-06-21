@@ -9,7 +9,7 @@ class HistoryItemRepImpl(
         dao.insertItem(item)
     }
 
-    override fun getHistoryItemById(id: Int): HistoryItem {
+    override suspend fun getHistoryItemById(id: Int): HistoryItem {
         return dao.getHistoryItemById(id)
     }
 

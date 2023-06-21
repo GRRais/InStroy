@@ -21,7 +21,7 @@ class InstrumentRepImpl(
         return  dao.getAllItems()
     }
 
-    override fun getInstrumentById(id: Int): Instrument {
+    override suspend fun getInstrumentById(id: Int): Instrument {
         return dao.getInstrumentById(id)
     }
 }

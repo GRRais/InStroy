@@ -17,7 +17,7 @@ class HolderRepImpl(
         return dao.getAllHolders()
     }
 
-    override fun getHolderById(id: Int): Holder {
+    override suspend fun getHolderById(id: Int): Holder {
         return dao.getHolderById(id)
     }
 }

@@ -6,7 +6,7 @@ interface HistoryItemRepository {
 
     suspend fun insertItem(item: HistoryItem)
 
-    fun getHistoryItemById(id: Int): HistoryItem
+    suspend fun getHistoryItemById(id: Int): HistoryItem
 
     fun getAllInstrumentHistoryItemsById(instrumentId: Int): Flow<List<HistoryItem>>
 
