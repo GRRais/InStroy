@@ -15,4 +15,5 @@ interface InstrumentStateChangeDialogController {
     val showBrokenLine: MutableState<Boolean>
     val showInstrumentStateBlock: MutableState<Boolean>
     val showAdditionalInfoBlock: MutableState<Boolean>
+    fun onInstrumentStateChangeDialogEvent(event: InstrumentStateChangeEvent)
 }

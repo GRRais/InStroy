@@ -10,4 +10,5 @@ interface EditHolderDialogController {
     val emailTextField: MutableState<String>
     val telegramNicknameTextField: MutableState<String>
     val whatsappNumberTextField: MutableState<String>
+    fun onEditHolderDialogEvent(event: EditHolderDialogEvent)
 }

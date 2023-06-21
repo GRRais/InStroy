@@ -13,4 +13,5 @@ interface EditInstrumentDialogController {
     val decommissionAmountText: MutableState<Int>
     val showEditFreeAmountButton: MutableState<Boolean>
     val showAddInstrumentButton: MutableState<Boolean>
+    fun onEditInstrumentDialog(event: EditInstrumentDialogEvent)
 }

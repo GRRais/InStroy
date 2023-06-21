@@ -5,16 +5,16 @@ import kotlinx.coroutines.flow.Flow
 class HolderRepImpl(
     private val dao: HolderDao
 ): HolderRepository {
-    override suspend fun insertItem(item: Holder) {
-        dao.insertItem(item)
+    override suspend fun insertHolder(item: Holder) {
+        dao.insertHolder(item)
     }
 
-    override suspend fun deleteItem(item: Holder) {
-        dao.deleteItem(item)
+    override suspend fun deleteHolder(item: Holder) {
+        dao.deleteHolder(item)
     }
 
-    override fun getAllItems(): Flow<List<Holder>> {
-        return dao.getAllItems()
+    override fun getAllHolders(): Flow<List<Holder>> {
+        return dao.getAllHolders()
     }
 
     override fun getHolderById(id: Int): Holder {

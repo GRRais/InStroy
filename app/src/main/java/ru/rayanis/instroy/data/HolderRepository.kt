@@ -4,11 +4,11 @@ import kotlinx.coroutines.flow.Flow
 
 interface HolderRepository {
 
-    suspend fun insertItem(item: Holder)
+    suspend fun insertHolder(item: Holder)
 
-    suspend fun deleteItem(item: Holder)
+    suspend fun deleteHolder(item: Holder)
 
-    fun getAllItems(): Flow<List<Holder>>
+    fun getAllHolders(): Flow<List<Holder>>
 
     fun getHolderById(id: Int): Holder
 }
