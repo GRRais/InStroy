@@ -1,6 +1,7 @@
 package ru.rayanis.instroy.holders_screen
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -16,22 +17,26 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
 import ru.rayanis.instroy.R
+import ru.rayanis.instroy.data.Holder
 import ru.rayanis.instroy.ui.theme.DarkText
 import ru.rayanis.instroy.ui.theme.GreenLight
 import ru.rayanis.instroy.ui.theme.Red
 import ru.rayanis.instroy.ui.theme.White
 
-@Preview(showBackground = true)
 @Composable
-fun UiHolderItem() {
-    ConstraintLayout(modifier = Modifier.padding(
-        start = 3.dp, top = 18.dp, end = 3.dp
-    )) {
+fun UiHolderItem(
+    item: Holder,
+    onEvent: (HoldersScreenEvent) -> Unit
+) {
+    ConstraintLayout(
+        modifier = Modifier.padding(
+            start = 3.dp, top = 18.dp, end = 3.dp
+        )
+    ) {
         val (card, editButton, deleteButton) = createRefs()
         Card(
             modifier = Modifier
@@ -41,6 +46,9 @@ fun UiHolderItem() {
                     start.linkTo(parent.start)
                     end.linkTo(parent.end)
                 }
+                .clickable {
+//                    onEvent(HoldersScreenEvent.onHolderClick.)
+                }
         ) {
             Column(
                 modifier = Modifier
@@ -48,7 +56,7 @@ fun UiHolderItem() {
                     .padding(12.dp)
             ) {
                 Text(
-                    text = "List 1",
+                    text = item.name,
                     style = TextStyle(
                         color = DarkText,
                         fontWeight = FontWeight.Bold,
@@ -59,12 +67,17 @@ fun UiHolderItem() {
         }
         //Кнопка удаления
         IconButton(
-            onClick = { },
-            modifier = Modifier.constrainAs(deleteButton) {
-                top.linkTo(card.top)
-                bottom.linkTo(card.bottom)
-                end.linkTo(card.end)
-            }.padding(end = 10.dp).size(30.dp)
+            onClick = {
+                onEvent(HoldersScreenEvent.onShowDeleteDialog(item))
+            },
+            modifier = Modifier
+                .constrainAs(deleteButton) {
+                    top.linkTo(card.top)
+                    bottom.linkTo(card.bottom)
+                    end.linkTo(card.end)
+                }
+                .padding(end = 10.dp)
+                .size(30.dp)
         ) {
             Icon(
                 painter = painterResource(id = R.drawable.delete_icon),
@@ -79,12 +92,17 @@ fun UiHolderItem() {
 
         //Кнопка редактирования
         IconButton(
-            onClick = { },
-            modifier = Modifier.constrainAs(editButton) {
-                top.linkTo(card.top)
-                bottom.linkTo(card.bottom)
-                end.linkTo(deleteButton.start)
-            }.padding(end = 5.dp).size(30.dp)
+            onClick = {
+                onEvent(HoldersScreenEvent.onShowEditDialog(item))
+            },
+            modifier = Modifier
+                .constrainAs(editButton) {
+                    top.linkTo(card.top)
+                    bottom.linkTo(card.bottom)
+                    end.linkTo(deleteButton.start)
+                }
+                .padding(end = 5.dp)
+                .size(30.dp)
         ) {
             Icon(
                 painter = painterResource(id = R.drawable.edit_icon),

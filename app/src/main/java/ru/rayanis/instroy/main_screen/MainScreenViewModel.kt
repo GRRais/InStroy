@@ -1,34 +1,22 @@
-package ru.rayanis.instroy.holders_screen
+package ru.rayanis.instroy.main_screen
 
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.channels.Channel
-import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 import ru.rayanis.instroy.data.Holder
 import ru.rayanis.instroy.data.HolderRepository
-import ru.rayanis.instroy.dialog.DeleteDialogController
-import ru.rayanis.instroy.dialog.DeleteDialogEvent
 import ru.rayanis.instroy.dialog.EditHolderDialogController
 import ru.rayanis.instroy.dialog.EditHolderDialogEvent
-import ru.rayanis.instroy.utils.UiEvent
 import javax.inject.Inject
 
 @HiltViewModel
-class HoldersViewModel @Inject constructor(
+class MainScreenViewModel @Inject constructor(
     private val repository: HolderRepository
-) : ViewModel(), EditHolderDialogController, DeleteDialogController {
+):  ViewModel(), EditHolderDialogController {
 
-    val holdersList = repository.getAllHolders()
-
-    private val _uiEvent = Channel<UiEvent> ()
-    val uiEvent = _uiEvent.receiveAsFlow()
-
-    private var holderItem: Holder? = null
-
-    override var openDialog = mutableStateOf(true)
+    override var openDialog = mutableStateOf(false)
         private set
     override var dialogTitle = mutableStateOf("Данные ответственного")
         private set
@@ -43,13 +31,14 @@ class HoldersViewModel @Inject constructor(
     override var whatsappNumberTextField = mutableStateOf("")
         private set
 
-    fun onEvent(event: HoldersScreenEvent) {
+    fun onEvent(event: MainScreenEvent) {
         when (event) {
-            is HoldersScreenEvent.OnHolderSave -> {
+            is MainScreenEvent.OnHolderSave -> {
+                if (nameTextField.value.isEmpty()) return
                 viewModelScope.launch {
                     repository.insertHolder(
                         Holder(
-                            holderItem?.id,
+                            null,
                             nameTextField.value,
                             phoneNumberTextField.value,
                             emailTextField.value,
@@ -60,25 +49,8 @@ class HoldersViewModel @Inject constructor(
                 }
             }
 
-            is HoldersScreenEvent.onHolderClick -> {
-                sendUiEvent(UiEvent.Navigate(event.route))
-            }
-
-            is HoldersScreenEvent.onShowEditDialog -> {
-                holderItem = event.item
+            is MainScreenEvent.OnShowEditDialog -> {
                 openDialog.value = true
-                nameTextField.value = holderItem?.name ?: ""
-                phoneNumberTextField.value = holderItem?.phoneNumber ?: ""
-                emailTextField.value = holderItem?.email ?: ""
-                telegramNicknameTextField.value = holderItem?.telegramNickname ?: ""
-                whatsappNumberTextField.value = holderItem?.whatsappNumber ?: ""
-                dialogTitle.value = "Добавить ответственного?"
-            }
-
-            is HoldersScreenEvent.onShowDeleteDialog -> {
-                holderItem = event.item
-                openDialog.value = true
-                dialogTitle.value = "Удалить ${holderItem?.name}?"
             }
         }
     }
@@ -106,32 +78,22 @@ class HoldersViewModel @Inject constructor(
             }
 
             is EditHolderDialogEvent.OnSave -> {
-                HoldersScreenEvent.OnHolderSave
+                onEvent(MainScreenEvent.OnHolderSave)
+                openDialog.value = false
+                nameTextField.value = ""
+                phoneNumberTextField.value = ""
+                emailTextField.value = ""
+                telegramNicknameTextField.value = ""
+                whatsappNumberTextField.value = ""
             }
             is EditHolderDialogEvent.OnCancel -> {
                 openDialog.value = false
+                nameTextField.value = ""
+                phoneNumberTextField.value = ""
+                emailTextField.value = ""
+                telegramNicknameTextField.value = ""
+                whatsappNumberTextField.value = ""
             }
-        }
-    }
-
-    override fun onDeleteDialogEvent(event: DeleteDialogEvent) {
-        when (event) {
-            is DeleteDialogEvent.OnConfirm -> {
-                viewModelScope.launch {
-                    holderItem?.let { repository.deleteHolder(it) }
-                }
-                openDialog.value = false
-            }
-
-            is DeleteDialogEvent.OnCancel -> {
-                openDialog.value = false
-            }
-        }
-    }
-
-    private fun sendUiEvent(event: UiEvent) {
-        viewModelScope.launch {
-            _uiEvent.send(event)
         }
     }
 }
