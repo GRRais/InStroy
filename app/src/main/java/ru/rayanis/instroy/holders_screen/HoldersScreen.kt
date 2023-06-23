@@ -11,6 +11,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import ru.rayanis.instroy.data.Holder
+import ru.rayanis.instroy.dialog.DeleteDialog
+import ru.rayanis.instroy.dialog.EditHolderDialog
 import ru.rayanis.instroy.ui.theme.GrayLight
 
 
@@ -32,5 +34,6 @@ fun HoldersScreen(
             }
         }
     }
-
+    DeleteDialog(viewModel)
+//    EditHolderDialog(viewModel)
 }

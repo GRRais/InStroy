@@ -28,7 +28,7 @@ class HoldersViewModel @Inject constructor(
 
     private var holderItem: Holder? = null
 
-    override var openDialog = mutableStateOf(true)
+    override var openDialog = mutableStateOf(false)
         private set
     override var dialogTitle = mutableStateOf("Данные ответственного")
         private set
@@ -46,6 +46,7 @@ class HoldersViewModel @Inject constructor(
     fun onEvent(event: HoldersScreenEvent) {
         when (event) {
             is HoldersScreenEvent.OnHolderSave -> {
+                if (nameTextField.value.isEmpty()) return
                 viewModelScope.launch {
                     repository.insertHolder(
                         Holder(
@@ -72,7 +73,7 @@ class HoldersViewModel @Inject constructor(
                 emailTextField.value = holderItem?.email ?: ""
                 telegramNicknameTextField.value = holderItem?.telegramNickname ?: ""
                 whatsappNumberTextField.value = holderItem?.whatsappNumber ?: ""
-                dialogTitle.value = "Добавить ответственного?"
+                dialogTitle.value = "Редактировать ответственного"
             }
 
             is HoldersScreenEvent.onShowDeleteDialog -> {
