@@ -18,7 +18,7 @@ class MainScreenViewModel @Inject constructor(
 
     override var openDialog = mutableStateOf(false)
         private set
-    override var dialogTitle = mutableStateOf("Данные ответственного")
+    override var dialogTitle = mutableStateOf("Новый ответственный")
         private set
     override var nameTextField = mutableStateOf("")
         private set

@@ -1,5 +1,6 @@
 package ru.rayanis.instroy.holders_screen
 
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -28,6 +29,8 @@ class HoldersViewModel @Inject constructor(
 
     private var holderItem: Holder? = null
 
+    override var openDeleteDialog = mutableStateOf(false)
+        private set
     override var openDialog = mutableStateOf(false)
         private set
     override var dialogTitle = mutableStateOf("Данные ответственного")
@@ -68,17 +71,17 @@ class HoldersViewModel @Inject constructor(
             is HoldersScreenEvent.onShowEditDialog -> {
                 holderItem = event.item
                 openDialog.value = true
+                dialogTitle.value = "Редактировать ${holderItem?.name}"
                 nameTextField.value = holderItem?.name ?: ""
                 phoneNumberTextField.value = holderItem?.phoneNumber ?: ""
                 emailTextField.value = holderItem?.email ?: ""
                 telegramNicknameTextField.value = holderItem?.telegramNickname ?: ""
                 whatsappNumberTextField.value = holderItem?.whatsappNumber ?: ""
-                dialogTitle.value = "Редактировать ответственного"
             }
 
             is HoldersScreenEvent.onShowDeleteDialog -> {
                 holderItem = event.item
-                openDialog.value = true
+                openDeleteDialog.value = true
                 dialogTitle.value = "Удалить ${holderItem?.name}?"
             }
         }
@@ -107,10 +110,21 @@ class HoldersViewModel @Inject constructor(
             }
 
             is EditHolderDialogEvent.OnSave -> {
-                HoldersScreenEvent.OnHolderSave
+                onEvent(HoldersScreenEvent.OnHolderSave)
+                openDialog.value = false
+                nameTextField.value = ""
+                phoneNumberTextField.value = ""
+                emailTextField.value = ""
+                telegramNicknameTextField.value = ""
+                whatsappNumberTextField.value = ""
             }
             is EditHolderDialogEvent.OnCancel -> {
                 openDialog.value = false
+                nameTextField.value = ""
+                phoneNumberTextField.value = ""
+                emailTextField.value = ""
+                telegramNicknameTextField.value = ""
+                whatsappNumberTextField.value = ""
             }
         }
     }
@@ -121,11 +135,11 @@ class HoldersViewModel @Inject constructor(
                 viewModelScope.launch {
                     holderItem?.let { repository.deleteHolder(it) }
                 }
-                openDialog.value = false
+                openDeleteDialog.value = false
             }
 
             is DeleteDialogEvent.OnCancel -> {
-                openDialog.value = false
+                openDeleteDialog.value = false
             }
         }
     }

@@ -34,6 +34,7 @@ fun HoldersScreen(
             }
         }
     }
+
+    EditHolderDialog(viewModel)
     DeleteDialog(viewModel)
-//    EditHolderDialog(viewModel)
 }

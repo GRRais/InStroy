@@ -8,5 +8,4 @@ sealed class EditHolderDialogEvent{
     data class OnWhatsappNumberChange(val whatsappNumber: String) : EditHolderDialogEvent()
     object OnSave : EditHolderDialogEvent()
     object OnCancel: EditHolderDialogEvent()
-
 }
