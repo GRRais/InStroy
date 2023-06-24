@@ -1,7 +1,7 @@
-package ru.rayanis.instroy.dialog
+package ru.rayanis.instroy.dialog.edit_instrument_dialog
 
-import ru.rayanis.instroy.data.HistoryItem
-import ru.rayanis.instroy.data.Instrument
+import ru.rayanis.instroy.data.history_item.HistoryItem
+import ru.rayanis.instroy.data.instrument.Instrument
 
 sealed class EditInstrumentDialogEvent {
     data class OnNameChange(val name: String) : EditInstrumentDialogEvent()

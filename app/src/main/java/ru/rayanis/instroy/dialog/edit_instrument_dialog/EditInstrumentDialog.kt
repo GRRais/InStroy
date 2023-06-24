@@ -1,4 +1,4 @@
-package ru.rayanis.instroy.dialog
+package ru.rayanis.instroy.dialog.edit_instrument_dialog
 
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.wrapContentHeight

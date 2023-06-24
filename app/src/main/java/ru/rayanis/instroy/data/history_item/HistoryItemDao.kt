@@ -1,4 +1,4 @@
-package ru.rayanis.instroy.data
+package ru.rayanis.instroy.data.history_item
 
 import androidx.room.Dao
 import androidx.room.Insert

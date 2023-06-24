@@ -10,9 +10,9 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import ru.rayanis.instroy.data.Holder
-import ru.rayanis.instroy.dialog.DeleteDialog
-import ru.rayanis.instroy.dialog.EditHolderDialog
+import ru.rayanis.instroy.data.holder.Holder
+import ru.rayanis.instroy.dialog.delete_dialog.DeleteDialog
+import ru.rayanis.instroy.dialog.edit_holder_dialog.EditHolderDialog
 import ru.rayanis.instroy.ui.theme.GrayLight
 
 

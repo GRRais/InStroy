@@ -1,4 +1,4 @@
-package ru.rayanis.instroy.data
+package ru.rayanis.instroy.data.instrument
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

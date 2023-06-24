@@ -1,4 +1,4 @@
-package ru.rayanis.instroy.dialog
+package ru.rayanis.instroy.dialog.edit_instrument_dialog
 
 import androidx.compose.runtime.MutableState
 
@@ -12,6 +12,6 @@ interface EditInstrumentDialogController {
     val maxAmountText: MutableState<Int>
     val decommissionAmountText: MutableState<Int>
     val showEditFreeAmountButton: MutableState<Boolean>
-    val showAddInstrumentButton: MutableState<Boolean>
+    val showInstrumentHistoryButton: MutableState<Boolean>
     fun onEditInstrumentDialog(event: EditInstrumentDialogEvent)
 }

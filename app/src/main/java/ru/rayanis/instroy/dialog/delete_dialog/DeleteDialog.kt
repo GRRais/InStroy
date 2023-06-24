@@ -1,4 +1,4 @@
-package ru.rayanis.instroy.dialog
+package ru.rayanis.instroy.dialog.delete_dialog
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth

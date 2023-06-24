@@ -9,6 +9,7 @@ import androidx.compose.material.Surface
 import androidx.compose.ui.Modifier
 import dagger.hilt.android.AndroidEntryPoint
 import ru.rayanis.instroy.main_screen.MainScreen
+import ru.rayanis.instroy.navigation.MainNavigationGraph
 import ru.rayanis.instroy.ui.theme.InStroyTheme
 
 @AndroidEntryPoint
@@ -21,7 +22,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background
                 ) {
-                    MainScreen()
+                    MainNavigationGraph()
                 }
             }
         }

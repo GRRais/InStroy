@@ -24,10 +24,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
 import ru.rayanis.instroy.R
-import ru.rayanis.instroy.data.Instrument
-import ru.rayanis.instroy.main_screen.BottomNavItem
 import ru.rayanis.instroy.ui.theme.DarkText
-import ru.rayanis.instroy.ui.theme.GrayLight
 import ru.rayanis.instroy.ui.theme.GreenLight
 import ru.rayanis.instroy.ui.theme.LightText
 import ru.rayanis.instroy.ui.theme.Red

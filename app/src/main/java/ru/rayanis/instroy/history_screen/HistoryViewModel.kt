@@ -1,22 +1,17 @@
 package ru.rayanis.instroy.history_screen
 
-import android.app.Application
-import android.content.Context
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
-import dagger.hilt.android.qualifiers.ApplicationContext
-import ru.rayanis.instroy.data.HistoryItemRepository
-import ru.rayanis.instroy.dialog.DeleteDialogController
-import ru.rayanis.instroy.dialog.DeleteDialogEvent
-import ru.rayanis.instroy.dialog.InstrumentStateChangeDialogController
-import ru.rayanis.instroy.dialog.InstrumentStateChangeEvent
+import ru.rayanis.instroy.data.history_item.HistoryItemRepository
+import ru.rayanis.instroy.dialog.change_history_item_dialog.ChangeHistoryItemDialogController
+import ru.rayanis.instroy.dialog.change_history_item_dialog.ChangeHistoryItemDialogEvent
 import javax.inject.Inject
 
 @HiltViewModel
 class HistoryViewModel @Inject constructor(
     private val repository: HistoryItemRepository
-): ViewModel(), InstrumentStateChangeDialogController{
+) : ViewModel(), ChangeHistoryItemDialogController {
 
     override var openDialog = mutableStateOf(false)
         private set
@@ -36,14 +31,8 @@ class HistoryViewModel @Inject constructor(
         private set
     override var returnAdditionalInfoText = mutableStateOf("")
         private set
-    override var showBrokenLine = mutableStateOf(false)
-        private set
-    override var showInstrumentStateBlock = mutableStateOf(false)
-        private set
-    override var showAdditionalInfoBlock = mutableStateOf(false)
-        private set
 
-    override fun onInstrumentStateChangeDialogEvent(event: InstrumentStateChangeEvent) {
+    override fun onChangeHistoryItemDialogEvent(event: ChangeHistoryItemDialogEvent) {
         TODO("Not yet implemented")
     }
 

@@ -1,5 +1,6 @@
-package ru.rayanis.instroy.holders_screen
+package ru.rayanis.instroy.instruments_screen
 
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -8,25 +9,26 @@ import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 import ru.rayanis.instroy.data.holder.Holder
-import ru.rayanis.instroy.data.holder.HolderRepository
+import ru.rayanis.instroy.data.instrument.InstrumentRepository
 import ru.rayanis.instroy.dialog.delete_dialog.DeleteDialogController
 import ru.rayanis.instroy.dialog.delete_dialog.DeleteDialogEvent
-import ru.rayanis.instroy.dialog.edit_holder_dialog.EditHolderDialogController
 import ru.rayanis.instroy.dialog.edit_holder_dialog.EditHolderDialogEvent
+import ru.rayanis.instroy.dialog.edit_instrument_dialog.EditInstrumentDialogController
+import ru.rayanis.instroy.dialog.edit_instrument_dialog.EditInstrumentDialogEvent
 import ru.rayanis.instroy.utils.UiEvent
 import javax.inject.Inject
 
 @HiltViewModel
-class HoldersViewModel @Inject constructor(
-    private val repository: HolderRepository
-) : ViewModel(), EditHolderDialogController, DeleteDialogController {
+class InstrumentsViewModel @Inject constructor(
+    private val repository: InstrumentRepository
+) : ViewModel(), EditInstrumentDialogController, DeleteDialogController {
 
-    val holdersList = repository.getAllHolders()
+    val instrumentsList = repository.getAllInstruments()
 
     private val _uiEvent = Channel<UiEvent> ()
     val uiEvent = _uiEvent.receiveAsFlow()
 
-    private var holderItem: Holder? = null
+    private var InstrumentItem: Holder? = null
 
     override var openDeleteDialog = mutableStateOf(false)
         private set
@@ -34,25 +36,36 @@ class HoldersViewModel @Inject constructor(
         private set
     override var dialogTitle = mutableStateOf("Данные ответственного")
         private set
-    override var nameTextField = mutableStateOf("")
+    override var nameText = mutableStateOf("")
         private set
-    override var phoneNumberTextField = mutableStateOf("")
+    override var additionalInfoText = mutableStateOf("")
         private set
-    override var emailTextField = mutableStateOf("")
+    override var freeAmountText = mutableStateOf(0)
         private set
-    override var telegramNicknameTextField = mutableStateOf("")
+    override var brokenAmountText = mutableStateOf(0)
         private set
-    override var whatsappNumberTextField = mutableStateOf("")
+    override var maxAmountText = mutableStateOf(0)
+        private set
+    override var decommissionAmountText = mutableStateOf(0)
+        private set
+    override var showEditFreeAmountButton = mutableStateOf(false)
+        private set
+    override var showInstrumentHistoryButton = mutableStateOf(false)
         private set
 
-    fun onEvent(event: HoldersScreenEvent) {
+    override fun onEditInstrumentDialog(event: EditInstrumentDialogEvent) {
+        TODO("Not yet implemented")
+    }
+
+
+    fun onEvent(event: InstrumentsScreenEvent) {
         when (event) {
-            is HoldersScreenEvent.OnHolderSave -> {
+            is InstrumentsScreenEvent.OnInstrumentSave-> {
                 if (nameTextField.value.isEmpty()) return
                 viewModelScope.launch {
-                    repository.insertHolder(
+                    repository.insertInstrument(
                         Holder(
-                            holderItem?.id,
+                            InstrumentItem?.id,
                             nameTextField.value,
                             phoneNumberTextField.value,
                             emailTextField.value,
@@ -63,30 +76,27 @@ class HoldersViewModel @Inject constructor(
                 }
             }
 
-            is HoldersScreenEvent.onHolderClick -> {
+            is InstrumentsScreenEvent.onInstrumentClick -> {
                 sendUiEvent(UiEvent.Navigate(event.route))
             }
 
-            is HoldersScreenEvent.onShowEditDialog -> {
-                holderItem = event.item
+            is InstrumentsScreenEvent.onShowEditDialog -> {
+                InstrumentItem = event.item
                 openDialog.value = true
-                dialogTitle.value = "Редактировать ${holderItem?.name}"
-                nameTextField.value = holderItem?.name ?: ""
-                phoneNumberTextField.value = holderItem?.phoneNumber ?: ""
-                emailTextField.value = holderItem?.email ?: ""
-                telegramNicknameTextField.value = holderItem?.telegramNickname ?: ""
-                whatsappNumberTextField.value = holderItem?.whatsappNumber ?: ""
+                dialogTitle.value = "Редактировать ${InstrumentItem?.name}"
+                nameTextField.value = InstrumentItem?.name ?: ""
+                phoneNumberTextField.value = InstrumentItem?.phoneNumber ?: ""
             }
 
-            is HoldersScreenEvent.onShowDeleteDialog -> {
-                holderItem = event.item
+            is InstrumentsScreenEvent.onShowDeleteDialog -> {
+                InstrumentItem = event.item
                 openDeleteDialog.value = true
-                dialogTitle.value = "Удалить ${holderItem?.name}?"
+                dialogTitle.value = "Удалить ${InstrumentItem?.name}?"
             }
         }
     }
 
-    override fun onEditHolderDialogEvent(event: EditHolderDialogEvent) {
+    override fun onEditInstrumentDialogEvent(event: EditHolderDialogEvent) {
         when (event) {
             is EditHolderDialogEvent.OnNameChange -> {
                 nameTextField.value = event.name
@@ -109,7 +119,7 @@ class HoldersViewModel @Inject constructor(
             }
 
             is EditHolderDialogEvent.OnSave -> {
-                onEvent(HoldersScreenEvent.OnHolderSave)
+                onEvent(InstrumentsScreenEvent.OnInstrumentSave)
                 openDialog.value = false
                 nameTextField.value = ""
                 phoneNumberTextField.value = ""
@@ -132,7 +142,7 @@ class HoldersViewModel @Inject constructor(
         when (event) {
             is DeleteDialogEvent.OnConfirm -> {
                 viewModelScope.launch {
-                    holderItem?.let { repository.deleteHolder(it) }
+                    InstrumentItem?.let { repository.deleteHolder(it) }
                 }
                 openDeleteDialog.value = false
             }

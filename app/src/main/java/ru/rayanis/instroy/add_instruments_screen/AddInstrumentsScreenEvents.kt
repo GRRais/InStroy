@@ -1,6 +1,6 @@
 package ru.rayanis.instroy.add_instruments_screen
 
-import ru.rayanis.instroy.data.HistoryItem
+import ru.rayanis.instroy.data.history_item.HistoryItem
 
 sealed class AddInstrumentsScreenEvents {
     data class onChangeQuantityField(val item: HistoryItem): AddInstrumentsScreenEvents()

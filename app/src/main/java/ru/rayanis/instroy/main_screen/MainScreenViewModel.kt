@@ -5,10 +5,10 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
-import ru.rayanis.instroy.data.Holder
-import ru.rayanis.instroy.data.HolderRepository
-import ru.rayanis.instroy.dialog.EditHolderDialogController
-import ru.rayanis.instroy.dialog.EditHolderDialogEvent
+import ru.rayanis.instroy.data.holder.Holder
+import ru.rayanis.instroy.data.holder.HolderRepository
+import ru.rayanis.instroy.dialog.edit_holder_dialog.EditHolderDialogController
+import ru.rayanis.instroy.dialog.edit_holder_dialog.EditHolderDialogEvent
 import javax.inject.Inject
 
 @HiltViewModel

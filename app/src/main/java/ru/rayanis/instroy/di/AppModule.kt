@@ -6,12 +6,12 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import ru.rayanis.instroy.data.HistoryItemRepImpl
-import ru.rayanis.instroy.data.HistoryItemRepository
-import ru.rayanis.instroy.data.HolderRepImpl
-import ru.rayanis.instroy.data.HolderRepository
-import ru.rayanis.instroy.data.InstrumentRepImpl
-import ru.rayanis.instroy.data.InstrumentRepository
+import ru.rayanis.instroy.data.history_item.HistoryItemRepImpl
+import ru.rayanis.instroy.data.history_item.HistoryItemRepository
+import ru.rayanis.instroy.data.holder.HolderRepImpl
+import ru.rayanis.instroy.data.holder.HolderRepository
+import ru.rayanis.instroy.data.instrument.InstrumentRepImpl
+import ru.rayanis.instroy.data.instrument.InstrumentRepository
 import ru.rayanis.instroy.data.MainDb
 import javax.inject.Singleton
 
@@ -30,19 +30,19 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun provideHolderRepo(db: MainDb): HolderRepository{
+    fun provideHolderRepo(db: MainDb): HolderRepository {
         return HolderRepImpl(db.holderDao)
     }
 
     @Provides
     @Singleton
-    fun provideInstrumentRepo(db: MainDb): InstrumentRepository{
+    fun provideInstrumentRepo(db: MainDb): InstrumentRepository {
         return InstrumentRepImpl(db.instrumentDao)
     }
 
     @Provides
     @Singleton
-    fun provideHistoryItemRepo(db: MainDb): HistoryItemRepository{
+    fun provideHistoryItemRepo(db: MainDb): HistoryItemRepository {
         return HistoryItemRepImpl(db.historyItemDao)
     }
 }

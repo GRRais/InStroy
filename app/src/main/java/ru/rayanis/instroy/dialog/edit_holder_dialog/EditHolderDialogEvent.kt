@@ -1,4 +1,4 @@
-package ru.rayanis.instroy.dialog
+package ru.rayanis.instroy.dialog.edit_holder_dialog
 
 sealed class EditHolderDialogEvent{
     data class OnNameChange(val name: String) : EditHolderDialogEvent()

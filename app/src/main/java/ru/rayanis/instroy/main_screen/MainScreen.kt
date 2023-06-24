@@ -8,15 +8,17 @@ import androidx.compose.material.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.painterResource
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import ru.rayanis.instroy.R
-import ru.rayanis.instroy.dialog.EditHolderDialog
+import ru.rayanis.instroy.dialog.edit_holder_dialog.EditHolderDialog
 import ru.rayanis.instroy.navigation.NavigationGraph
 import ru.rayanis.instroy.ui.theme.White
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
 fun MainScreen(
+    mainNavHostController: NavHostController,
     viewModel: MainScreenViewModel = hiltViewModel()
 ) {
 

@@ -1,4 +1,4 @@
-package ru.rayanis.instroy.dialog
+package ru.rayanis.instroy.dialog.delete_dialog
 
 import androidx.compose.runtime.MutableState
 

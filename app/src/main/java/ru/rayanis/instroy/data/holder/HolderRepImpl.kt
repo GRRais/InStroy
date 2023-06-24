@@ -1,4 +1,4 @@
-package ru.rayanis.instroy.data
+package ru.rayanis.instroy.data.holder
 
 import kotlinx.coroutines.flow.Flow
 

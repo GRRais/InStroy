@@ -1,6 +1,6 @@
 package ru.rayanis.instroy.holders_screen
 
-import ru.rayanis.instroy.data.Holder
+import ru.rayanis.instroy.data.holder.Holder
 
 sealed class HoldersScreenEvent {
     data class onShowDeleteDialog(val item: Holder) : HoldersScreenEvent()
