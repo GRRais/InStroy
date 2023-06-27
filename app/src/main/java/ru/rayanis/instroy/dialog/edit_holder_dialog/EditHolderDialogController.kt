@@ -5,10 +5,10 @@ import androidx.compose.runtime.MutableState
 interface EditHolderDialogController {
     val openDialog: MutableState<Boolean>
     val dialogTitle: MutableState<String>
-    val nameTextField: MutableState<String>
-    val phoneNumberTextField: MutableState<String>
-    val emailTextField: MutableState<String>
-    val telegramNicknameTextField: MutableState<String>
-    val whatsappNumberTextField: MutableState<String>
+    val nameText: MutableState<String>
+    val phoneNumberText: MutableState<String>
+    val emailText: MutableState<String>
+    val telegramNicknameText: MutableState<String>
+    val whatsappNumberText: MutableState<String>
     fun onEditHolderDialogEvent(event: EditHolderDialogEvent)
 }

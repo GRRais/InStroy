@@ -20,30 +20,30 @@ class MainScreenViewModel @Inject constructor(
         private set
     override var dialogTitle = mutableStateOf("Новый ответственный")
         private set
-    override var nameTextField = mutableStateOf("")
+    override var nameText = mutableStateOf("")
         private set
-    override var phoneNumberTextField = mutableStateOf("")
+    override var phoneNumberText = mutableStateOf("")
         private set
-    override var emailTextField = mutableStateOf("")
+    override var emailText = mutableStateOf("")
         private set
-    override var telegramNicknameTextField = mutableStateOf("")
+    override var telegramNicknameText = mutableStateOf("")
         private set
-    override var whatsappNumberTextField = mutableStateOf("")
+    override var whatsappNumberText = mutableStateOf("")
         private set
 
     fun onEvent(event: MainScreenEvent) {
         when (event) {
             is MainScreenEvent.OnHolderSave -> {
-                if (nameTextField.value.isEmpty()) return
+                if (nameText.value.isEmpty()) return
                 viewModelScope.launch {
                     repository.insertHolder(
                         Holder(
                             null,
-                            nameTextField.value,
-                            phoneNumberTextField.value,
-                            emailTextField.value,
-                            telegramNicknameTextField.value,
-                            whatsappNumberTextField.value
+                            nameText.value,
+                            phoneNumberText.value,
+                            emailText.value,
+                            telegramNicknameText.value,
+                            whatsappNumberText.value
                         )
                     )
                 }
@@ -58,41 +58,41 @@ class MainScreenViewModel @Inject constructor(
     override fun onEditHolderDialogEvent(event: EditHolderDialogEvent) {
         when (event) {
             is EditHolderDialogEvent.OnNameChange -> {
-                nameTextField.value = event.name
+                nameText.value = event.name
             }
 
             is EditHolderDialogEvent.OnPhoneNumberChange -> {
-                phoneNumberTextField.value = event.phoneNumber
+                phoneNumberText.value = event.phoneNumber
             }
 
             is EditHolderDialogEvent.OnEmailChange -> {
-                emailTextField.value = event.email
+                emailText.value = event.email
             }
 
             is EditHolderDialogEvent.OnTelegramNicknameChange -> {
-                telegramNicknameTextField.value = event.telegramNickname
+                telegramNicknameText.value = event.telegramNickname
             }
 
             is EditHolderDialogEvent.OnWhatsappNumberChange -> {
-                whatsappNumberTextField.value = event.whatsappNumber
+                whatsappNumberText.value = event.whatsappNumber
             }
 
             is EditHolderDialogEvent.OnSave -> {
                 onEvent(MainScreenEvent.OnHolderSave)
                 openDialog.value = false
-                nameTextField.value = ""
-                phoneNumberTextField.value = ""
-                emailTextField.value = ""
-                telegramNicknameTextField.value = ""
-                whatsappNumberTextField.value = ""
+                nameText.value = ""
+                phoneNumberText.value = ""
+                emailText.value = ""
+                telegramNicknameText.value = ""
+                whatsappNumberText.value = ""
             }
             is EditHolderDialogEvent.OnCancel -> {
                 openDialog.value = false
-                nameTextField.value = ""
-                phoneNumberTextField.value = ""
-                emailTextField.value = ""
-                telegramNicknameTextField.value = ""
-                whatsappNumberTextField.value = ""
+                nameText.value = ""
+                phoneNumberText.value = ""
+                emailText.value = ""
+                telegramNicknameText.value = ""
+                whatsappNumberText.value = ""
             }
         }
     }

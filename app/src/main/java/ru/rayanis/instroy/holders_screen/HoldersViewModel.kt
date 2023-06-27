@@ -34,30 +34,30 @@ class HoldersViewModel @Inject constructor(
         private set
     override var dialogTitle = mutableStateOf("Данные ответственного")
         private set
-    override var nameTextField = mutableStateOf("")
+    override var nameText = mutableStateOf("")
         private set
-    override var phoneNumberTextField = mutableStateOf("")
+    override var phoneNumberText = mutableStateOf("")
         private set
-    override var emailTextField = mutableStateOf("")
+    override var emailText = mutableStateOf("")
         private set
-    override var telegramNicknameTextField = mutableStateOf("")
+    override var telegramNicknameText = mutableStateOf("")
         private set
-    override var whatsappNumberTextField = mutableStateOf("")
+    override var whatsappNumberText = mutableStateOf("")
         private set
 
     fun onEvent(event: HoldersScreenEvent) {
         when (event) {
             is HoldersScreenEvent.OnHolderSave -> {
-                if (nameTextField.value.isEmpty()) return
+                if (nameText.value.isEmpty()) return
                 viewModelScope.launch {
                     repository.insertHolder(
                         Holder(
                             holderItem?.id,
-                            nameTextField.value,
-                            phoneNumberTextField.value,
-                            emailTextField.value,
-                            telegramNicknameTextField.value,
-                            whatsappNumberTextField.value
+                            nameText.value,
+                            phoneNumberText.value,
+                            emailText.value,
+                            telegramNicknameText.value,
+                            whatsappNumberText.value
                         )
                     )
                 }
@@ -71,11 +71,11 @@ class HoldersViewModel @Inject constructor(
                 holderItem = event.item
                 openDialog.value = true
                 dialogTitle.value = "Редактировать ${holderItem?.name}"
-                nameTextField.value = holderItem?.name ?: ""
-                phoneNumberTextField.value = holderItem?.phoneNumber ?: ""
-                emailTextField.value = holderItem?.email ?: ""
-                telegramNicknameTextField.value = holderItem?.telegramNickname ?: ""
-                whatsappNumberTextField.value = holderItem?.whatsappNumber ?: ""
+                nameText.value = holderItem?.name ?: ""
+                phoneNumberText.value = holderItem?.phoneNumber ?: ""
+                emailText.value = holderItem?.email ?: ""
+                telegramNicknameText.value = holderItem?.telegramNickname ?: ""
+                whatsappNumberText.value = holderItem?.whatsappNumber ?: ""
             }
 
             is HoldersScreenEvent.onShowDeleteDialog -> {
@@ -89,41 +89,41 @@ class HoldersViewModel @Inject constructor(
     override fun onEditHolderDialogEvent(event: EditHolderDialogEvent) {
         when (event) {
             is EditHolderDialogEvent.OnNameChange -> {
-                nameTextField.value = event.name
+                nameText.value = event.name
             }
 
             is EditHolderDialogEvent.OnPhoneNumberChange -> {
-                phoneNumberTextField.value = event.phoneNumber
+                phoneNumberText.value = event.phoneNumber
             }
 
             is EditHolderDialogEvent.OnEmailChange -> {
-                emailTextField.value = event.email
+                emailText.value = event.email
             }
 
             is EditHolderDialogEvent.OnTelegramNicknameChange -> {
-                telegramNicknameTextField.value = event.telegramNickname
+                telegramNicknameText.value = event.telegramNickname
             }
 
             is EditHolderDialogEvent.OnWhatsappNumberChange -> {
-                whatsappNumberTextField.value = event.whatsappNumber
+                whatsappNumberText.value = event.whatsappNumber
             }
 
             is EditHolderDialogEvent.OnSave -> {
                 onEvent(HoldersScreenEvent.OnHolderSave)
                 openDialog.value = false
-                nameTextField.value = ""
-                phoneNumberTextField.value = ""
-                emailTextField.value = ""
-                telegramNicknameTextField.value = ""
-                whatsappNumberTextField.value = ""
+                nameText.value = ""
+                phoneNumberText.value = ""
+                emailText.value = ""
+                telegramNicknameText.value = ""
+                whatsappNumberText.value = ""
             }
             is EditHolderDialogEvent.OnCancel -> {
                 openDialog.value = false
-                nameTextField.value = ""
-                phoneNumberTextField.value = ""
-                emailTextField.value = ""
-                telegramNicknameTextField.value = ""
-                whatsappNumberTextField.value = ""
+                nameText.value = ""
+                phoneNumberText.value = ""
+                emailText.value = ""
+                telegramNicknameText.value = ""
+                whatsappNumberText.value = ""
             }
         }
     }

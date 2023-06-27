@@ -45,7 +45,7 @@ fun EditHolderDialog(
                     )
                     Spacer(modifier = Modifier.height(10.dp))
                     TextField(
-                        value = dialogController.nameTextField.value,
+                        value = dialogController.nameText.value,
                         onValueChange = { text ->
                             dialogController.onEditHolderDialogEvent(
                                 EditHolderDialogEvent.OnNameChange(
@@ -70,7 +70,7 @@ fun EditHolderDialog(
                         )
                     )
                     TextField(
-                        value = dialogController.phoneNumberTextField.value,
+                        value = dialogController.phoneNumberText.value,
                         onValueChange = { text ->
                             dialogController.onEditHolderDialogEvent(
                                 EditHolderDialogEvent.OnPhoneNumberChange(
@@ -95,7 +95,7 @@ fun EditHolderDialog(
                         )
                     )
                     TextField(
-                        value = dialogController.emailTextField.value,
+                        value = dialogController.emailText.value,
                         onValueChange = { text ->
                             dialogController.onEditHolderDialogEvent(
                                 EditHolderDialogEvent.OnEmailChange(
@@ -120,7 +120,7 @@ fun EditHolderDialog(
                         )
                     )
                     TextField(
-                        value = dialogController.telegramNicknameTextField.value,
+                        value = dialogController.telegramNicknameText.value,
                         onValueChange = { text ->
                             dialogController.onEditHolderDialogEvent(
                                 EditHolderDialogEvent.OnTelegramNicknameChange(
@@ -145,7 +145,7 @@ fun EditHolderDialog(
                         )
                     )
                     TextField(
-                        value = dialogController.whatsappNumberTextField.value,
+                        value = dialogController.whatsappNumberText.value,
                         onValueChange = { text ->
                             dialogController.onEditHolderDialogEvent(
                                 EditHolderDialogEvent.OnWhatsappNumberChange(

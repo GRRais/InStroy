@@ -1,18 +1,213 @@
 package ru.rayanis.instroy.dialog.edit_instrument_dialog
 
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.wrapContentHeight
-import androidx.compose.foundation.layout.wrapContentWidth
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.AlertDialog
 import androidx.compose.material.Text
+import androidx.compose.material.TextButton
+import androidx.compose.material.TextField
+import androidx.compose.material.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
+import ru.rayanis.instroy.dialog.edit_holder_dialog.EditHolderDialogEvent
+import ru.rayanis.instroy.dialog.edit_instrument_amount_dialog.EditInstrumentAmountDialogController
+import ru.rayanis.instroy.ui.theme.DarkText
+import ru.rayanis.instroy.ui.theme.GrayLight
 
 @Composable
-fun InstrumentDialog() {
-    Text(
-        text = "Instrument dialog",
-        modifier = Modifier.fillMaxSize()
-            .wrapContentWidth()
-            .wrapContentHeight()
-    )
+fun EditInstrumentDialog(
+    editInstrumentDialogController: EditInstrumentDialogController,
+    editInstrumentAmountDialogController: EditInstrumentAmountDialogController
+
+) {
+    if (editInstrumentDialogController.openDialog.value) {
+        AlertDialog(
+            onDismissRequest = {
+                editInstrumentDialogController.onEditInstrumentDialogEvent(EditInstrumentDialogEvent.OnCancel)
+            },
+            title = null,
+            text = {
+                Column(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                ) {
+                    Text(
+                        text = editInstrumentDialogController.dialogTitle.value,
+                        style = TextStyle(
+                            color = DarkText,
+                            fontWeight = FontWeight.Bold,
+                            fontSize = 20.sp
+                        )
+                    )
+                    Spacer(modifier = Modifier.height(10.dp))
+                    TextField(
+                        value = editInstrumentDialogController.nameText.value,
+                        onValueChange = { text ->
+                            editInstrumentDialogController.onEditInstrumentDialogEvent(
+                                EditInstrumentDialogEvent.OnNameChange(
+                                    text
+                                )
+                            )
+                        },
+                        modifier = Modifier.padding(top = 5.dp),
+                        label = {
+                            Text(text = "Наименование")
+                        },
+                        colors = TextFieldDefaults.textFieldColors(
+                            backgroundColor = GrayLight,
+                            focusedIndicatorColor = Color.Transparent,
+                            unfocusedIndicatorColor = Color.Transparent
+                        ),
+                        shape = RoundedCornerShape(7.dp),
+                        singleLine = true,
+                        textStyle = TextStyle(
+                            color = DarkText,
+                            fontSize = 16.sp
+                        )
+                    )
+                    TextField(
+                        value = editInstrumentDialogController.additionalInfoText.value,
+                        onValueChange = { text ->
+                            editInstrumentDialogController.onEditInstrumentDialogEvent(
+                                EditInstrumentDialogEvent.OnAdditionalInfoChange(
+                                    text
+                                )
+                            )
+                        },
+                        modifier = Modifier.padding(top = 5.dp),
+                        label = {
+                            Text(text = "Дополнительная информация")
+                        },
+                        colors = TextFieldDefaults.textFieldColors(
+                            backgroundColor = GrayLight,
+                            focusedIndicatorColor = Color.Transparent,
+                            unfocusedIndicatorColor = Color.Transparent
+                        ),
+                        shape = RoundedCornerShape(7.dp),
+                        singleLine = true,
+                        textStyle = TextStyle(
+                            color = DarkText,
+                            fontSize = 16.sp
+                        )
+                    )
+                    Column(modifier = Modifier.fillMaxWidth()) {
+                        Row(modifier = Modifier.fillMaxWidth()) {
+                            Text(
+                                text = "Доступно",
+                                modifier = Modifier.padding(top = 5.dp),
+                                style = TextStyle(
+                                    color = DarkText,
+                                    fontSize = 16.sp
+                                )
+                            )
+                            TextField(
+                                value = editInstrumentDialogController.freeAmountText.value.toString(),
+                                onValueChange = { text ->
+                                    editInstrumentDialogController.onEditInstrumentDialogEvent(
+                                        EditInstrumentDialogEvent.(
+                                            text
+                                        )
+                                    )
+                                },
+                                modifier = Modifier.padding(top = 5.dp),
+                                colors = TextFieldDefaults.textFieldColors(
+                                    backgroundColor = Color.Transparent,
+                                    focusedIndicatorColor = Color.Transparent,
+                                    unfocusedIndicatorColor = Color.Transparent
+                                ),
+                                shape = RoundedCornerShape(7.dp),
+                                textStyle = TextStyle(
+                                    color = DarkText,
+                                    fontSize = 16.sp
+                                )
+                            )
+                        }
+                    }
+                    
+                    Text(
+                        text = editInstrumentDialogController.freeAmountText.value,
+                        modifier = Modifier.padding(top = 5.dp),
+                        textStyle = TextStyle(
+                            color = DarkText,
+                            fontSize = 16.sp
+                        )
+                    )
+                    TextField(
+                        value = editInstrumentDialogController.telegramNicknameTextField.value,
+                        onValueChange = { text ->
+                            editInstrumentDialogController.onEditHolderDialogEvent(
+                                EditHolderDialogEvent.OnTelegramNicknameChange(
+                                    text
+                                )
+                            )
+                        },
+                        modifier = Modifier.padding(top = 5.dp),
+                        label = {
+                            Text(text = "Telegram")
+                        },
+                        colors = TextFieldDefaults.textFieldColors(
+                            backgroundColor = GrayLight,
+                            focusedIndicatorColor = Color.Transparent,
+                            unfocusedIndicatorColor = Color.Transparent
+                        ),
+                        shape = RoundedCornerShape(7.dp),
+                        singleLine = true,
+                        textStyle = TextStyle(
+                            color = DarkText,
+                            fontSize = 16.sp
+                        )
+                    )
+                    TextField(
+                        value = editInstrumentDialogController.whatsappNumberTextField.value,
+                        onValueChange = { text ->
+                            editInstrumentDialogController.onEditHolderDialogEvent(
+                                EditHolderDialogEvent.OnWhatsappNumberChange(
+                                    text
+                                )
+                            )
+                        },
+                        modifier = Modifier.padding(top = 5.dp),
+                        label = {
+                            Text(text = "Whatsapp")
+                        },
+                        colors = TextFieldDefaults.textFieldColors(
+                            backgroundColor = GrayLight,
+                            focusedIndicatorColor = Color.Transparent,
+                            unfocusedIndicatorColor = Color.Transparent
+                        ),
+                        shape = RoundedCornerShape(7.dp),
+                        singleLine = true,
+                        textStyle = TextStyle(
+                            color = DarkText,
+                            fontSize = 16.sp
+                        )
+                    )
+                }
+            },
+            confirmButton = {
+                TextButton(onClick = {
+                    editInstrumentDialogController.onEditHolderDialogEvent(EditHolderDialogEvent.OnSave)
+                }) {
+                    Text(text = "Сохранить")
+                }
+            },
+            dismissButton = {
+                TextButton(onClick = {
+                    editInstrumentDialogController.onEditHolderDialogEvent(EditHolderDialogEvent.OnCancel)
+                }) {
+                    Text(text = "Отмена")
+                }
+            }
+        )
+    }
 }

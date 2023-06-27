@@ -15,4 +15,5 @@ sealed class EditInstrumentDialogEvent {
         EditInstrumentDialogEvent()
 
     object OnSave : EditInstrumentDialogEvent()
+    object OnCancel : EditInstrumentDialogEvent()
 }
