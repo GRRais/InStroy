@@ -13,6 +13,8 @@ import ru.rayanis.instroy.data.instrument.InstrumentRepository
 import ru.rayanis.instroy.dialog.delete_dialog.DeleteDialogController
 import ru.rayanis.instroy.dialog.delete_dialog.DeleteDialogEvent
 import ru.rayanis.instroy.dialog.edit_holder_dialog.EditHolderDialogEvent
+import ru.rayanis.instroy.dialog.edit_instrument_amount_dialog.EditInstrumentAmountDialogController
+import ru.rayanis.instroy.dialog.edit_instrument_amount_dialog.EditInstrumentAmountDialogEvent
 import ru.rayanis.instroy.dialog.edit_instrument_dialog.EditInstrumentDialogController
 import ru.rayanis.instroy.dialog.edit_instrument_dialog.EditInstrumentDialogEvent
 import ru.rayanis.instroy.utils.UiEvent
@@ -21,11 +23,12 @@ import javax.inject.Inject
 @HiltViewModel
 class InstrumentsViewModel @Inject constructor(
     private val repository: InstrumentRepository
-) : ViewModel(), EditInstrumentDialogController, DeleteDialogController {
+) : ViewModel(), EditInstrumentDialogController, EditInstrumentAmountDialogController,
+    DeleteDialogController {
 
     val instrumentsList = repository.getAllInstruments()
 
-    private val _uiEvent = Channel<UiEvent> ()
+    private val _uiEvent = Channel<UiEvent>()
     val uiEvent = _uiEvent.receiveAsFlow()
 
     private var InstrumentItem: Holder? = null
@@ -36,6 +39,21 @@ class InstrumentsViewModel @Inject constructor(
         private set
     override var dialogTitle = mutableStateOf("Данные ответственного")
         private set
+    override val quantityText: MutableState<Int>
+        get() = TODO("Not yet implemented")
+    override val freeAmountRadioButton: MutableState<Boolean>
+        get() = TODO("Not yet implemented")
+    override val maxAmountRadioButton: MutableState<Boolean>
+        get() = TODO("Not yet implemented")
+    override val brokenAmountRadioButton: MutableState<Boolean>
+        get() = TODO("Not yet implemented")
+    override val decommissionAmountRadioButton: MutableState<Boolean>
+        get() = TODO("Not yet implemented")
+
+    override fun onChangeHistoryItemDialogEvent(event: EditInstrumentAmountDialogEvent) {
+        TODO("Not yet implemented")
+    }
+
     override var nameText = mutableStateOf("")
         private set
     override var additionalInfoText = mutableStateOf("")
@@ -53,14 +71,14 @@ class InstrumentsViewModel @Inject constructor(
     override var showInstrumentHistoryButton = mutableStateOf(false)
         private set
 
-    override fun onEditInstrumentDialog(event: EditInstrumentDialogEvent) {
+    override fun onEditInstrumentDialogEvent(event: EditInstrumentDialogEvent) {
         TODO("Not yet implemented")
     }
 
 
     fun onEvent(event: InstrumentsScreenEvent) {
         when (event) {
-            is InstrumentsScreenEvent.OnInstrumentSave-> {
+            is InstrumentsScreenEvent.OnInstrumentSave -> {
                 if (nameTextField.value.isEmpty()) return
                 viewModelScope.launch {
                     repository.insertInstrument(
@@ -127,6 +145,7 @@ class InstrumentsViewModel @Inject constructor(
                 telegramNicknameTextField.value = ""
                 whatsappNumberTextField.value = ""
             }
+
             is EditHolderDialogEvent.OnCancel -> {
                 openDialog.value = false
                 nameTextField.value = ""

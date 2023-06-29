@@ -114,7 +114,7 @@ fun EditInstrumentDialog(
                                 value = editInstrumentDialogController.freeAmountText.value.toString(),
                                 onValueChange = { text ->
                                     editInstrumentDialogController.onEditInstrumentDialogEvent(
-                                        EditInstrumentDialogEvent.(
+                                        EditInstrumentDialogEvent.OnFreeAmountPress(
                                             text
                                         )
                                     )
