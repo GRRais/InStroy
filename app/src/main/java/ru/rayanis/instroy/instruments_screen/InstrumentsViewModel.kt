@@ -39,18 +39,18 @@ class InstrumentsViewModel @Inject constructor(
         private set
     override var dialogTitle = mutableStateOf("Данные ответственного")
         private set
-    override val quantityText: MutableState<Int>
-        get() = TODO("Not yet implemented")
-    override val freeAmountRadioButton: MutableState<Boolean>
-        get() = TODO("Not yet implemented")
-    override val maxAmountRadioButton: MutableState<Boolean>
-        get() = TODO("Not yet implemented")
-    override val brokenAmountRadioButton: MutableState<Boolean>
-        get() = TODO("Not yet implemented")
-    override val decommissionAmountRadioButton: MutableState<Boolean>
-        get() = TODO("Not yet implemented")
+    override var quantityText = mutableStateOf(0)
+        private set
+    override var freeAmountRadioButton = mutableStateOf(false)
+        private set
+    override var maxAmountRadioButton = mutableStateOf(false)
+        private set
+    override var brokenAmountRadioButton = mutableStateOf(false)
+        private set
+    override var decommissionAmountRadioButton = mutableStateOf(false)
+        private set
 
-    override fun onChangeHistoryItemDialogEvent(event: EditInstrumentAmountDialogEvent) {
+    override fun onChangeItemDialogEvent(event: EditInstrumentAmountDialogEvent) {
         TODO("Not yet implemented")
     }
 

@@ -21,6 +21,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import ru.rayanis.instroy.dialog.edit_holder_dialog.EditHolderDialogEvent
 import ru.rayanis.instroy.dialog.edit_instrument_amount_dialog.EditInstrumentAmountDialogController
+import ru.rayanis.instroy.dialog.edit_instrument_amount_dialog.EditInstrumentAmountDialogEvent
 import ru.rayanis.instroy.ui.theme.DarkText
 import ru.rayanis.instroy.ui.theme.GrayLight
 
@@ -110,23 +111,10 @@ fun EditInstrumentDialog(
                                     fontSize = 16.sp
                                 )
                             )
-                            TextField(
-                                value = editInstrumentDialogController.freeAmountText.value.toString(),
-                                onValueChange = { text ->
-                                    editInstrumentDialogController.onEditInstrumentDialogEvent(
-                                        EditInstrumentDialogEvent.OnFreeAmountPress(
-                                            text
-                                        )
-                                    )
-                                },
+                            Text(
+                                text = editInstrumentDialogController.freeAmountText.value.toString(),
                                 modifier = Modifier.padding(top = 5.dp),
-                                colors = TextFieldDefaults.textFieldColors(
-                                    backgroundColor = Color.Transparent,
-                                    focusedIndicatorColor = Color.Transparent,
-                                    unfocusedIndicatorColor = Color.Transparent
-                                ),
-                                shape = RoundedCornerShape(7.dp),
-                                textStyle = TextStyle(
+                                style = TextStyle(
                                     color = DarkText,
                                     fontSize = 16.sp
                                 )
