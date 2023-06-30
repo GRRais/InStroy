@@ -120,71 +120,66 @@ fun EditInstrumentDialog(
                                 )
                             )
                         }
+                        Row(modifier = Modifier.fillMaxWidth()) {
+                            Text(
+                                text = "На ремонте",
+                                modifier = Modifier.padding(top = 5.dp),
+                                style = TextStyle(
+                                    color = DarkText,
+                                    fontSize = 16.sp
+                                )
+                            )
+                            Text(
+                                text = editInstrumentDialogController.brokenAmountText.value.toString(),
+                                modifier = Modifier.padding(top = 5.dp),
+                                style = TextStyle(
+                                    color = DarkText,
+                                    fontSize = 16.sp
+                                )
+                            )
+                        }
+                        Row(modifier = Modifier.fillMaxWidth()) {
+                            Text(
+                                text = "Всего",
+                                modifier = Modifier.padding(top = 5.dp),
+                                style = TextStyle(
+                                    color = DarkText,
+                                    fontSize = 16.sp
+                                )
+                            )
+                            Text(
+                                text = editInstrumentDialogController.maxAmountText.value.toString(),
+                                modifier = Modifier.padding(top = 5.dp),
+                                style = TextStyle(
+                                    color = DarkText,
+                                    fontSize = 16.sp
+                                )
+                            )
+                        }
+                        Row(modifier = Modifier.fillMaxWidth()) {
+                            Text(
+                                text = "Списано",
+                                modifier = Modifier.padding(top = 5.dp),
+                                style = TextStyle(
+                                    color = DarkText,
+                                    fontSize = 16.sp
+                                )
+                            )
+                            Text(
+                                text = editInstrumentDialogController.decommissionAmountText.value.toString(),
+                                modifier = Modifier.padding(top = 5.dp),
+                                style = TextStyle(
+                                    color = DarkText,
+                                    fontSize = 16.sp
+                                )
+                            )
+                        }
                     }
-                    
-                    Text(
-                        text = editInstrumentDialogController.freeAmountText.value,
-                        modifier = Modifier.padding(top = 5.dp),
-                        textStyle = TextStyle(
-                            color = DarkText,
-                            fontSize = 16.sp
-                        )
-                    )
-                    TextField(
-                        value = editInstrumentDialogController.telegramNicknameTextField.value,
-                        onValueChange = { text ->
-                            editInstrumentDialogController.onEditHolderDialogEvent(
-                                EditHolderDialogEvent.OnTelegramNicknameChange(
-                                    text
-                                )
-                            )
-                        },
-                        modifier = Modifier.padding(top = 5.dp),
-                        label = {
-                            Text(text = "Telegram")
-                        },
-                        colors = TextFieldDefaults.textFieldColors(
-                            backgroundColor = GrayLight,
-                            focusedIndicatorColor = Color.Transparent,
-                            unfocusedIndicatorColor = Color.Transparent
-                        ),
-                        shape = RoundedCornerShape(7.dp),
-                        singleLine = true,
-                        textStyle = TextStyle(
-                            color = DarkText,
-                            fontSize = 16.sp
-                        )
-                    )
-                    TextField(
-                        value = editInstrumentDialogController.whatsappNumberTextField.value,
-                        onValueChange = { text ->
-                            editInstrumentDialogController.onEditHolderDialogEvent(
-                                EditHolderDialogEvent.OnWhatsappNumberChange(
-                                    text
-                                )
-                            )
-                        },
-                        modifier = Modifier.padding(top = 5.dp),
-                        label = {
-                            Text(text = "Whatsapp")
-                        },
-                        colors = TextFieldDefaults.textFieldColors(
-                            backgroundColor = GrayLight,
-                            focusedIndicatorColor = Color.Transparent,
-                            unfocusedIndicatorColor = Color.Transparent
-                        ),
-                        shape = RoundedCornerShape(7.dp),
-                        singleLine = true,
-                        textStyle = TextStyle(
-                            color = DarkText,
-                            fontSize = 16.sp
-                        )
-                    )
                 }
             },
             confirmButton = {
                 TextButton(onClick = {
-                    editInstrumentDialogController.onEditHolderDialogEvent(EditHolderDialogEvent.OnSave)
+                    editInstrumentAmountDialogController.onChangeAmountDialogEvent(EditInstrumentAmountDialogEvent.OnSave)
                 }) {
                     Text(text = "Сохранить")
                 }

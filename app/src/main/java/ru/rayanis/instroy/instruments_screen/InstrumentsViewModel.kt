@@ -1,6 +1,5 @@
 package ru.rayanis.instroy.instruments_screen
 
-import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -9,6 +8,7 @@ import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 import ru.rayanis.instroy.data.holder.Holder
+import ru.rayanis.instroy.data.instrument.Instrument
 import ru.rayanis.instroy.data.instrument.InstrumentRepository
 import ru.rayanis.instroy.dialog.delete_dialog.DeleteDialogController
 import ru.rayanis.instroy.dialog.delete_dialog.DeleteDialogEvent
@@ -31,7 +31,7 @@ class InstrumentsViewModel @Inject constructor(
     private val _uiEvent = Channel<UiEvent>()
     val uiEvent = _uiEvent.receiveAsFlow()
 
-    private var InstrumentItem: Holder? = null
+    private var instrumentItem: Holder? = null
 
     override var openDeleteDialog = mutableStateOf(false)
         private set
@@ -50,7 +50,7 @@ class InstrumentsViewModel @Inject constructor(
     override var decommissionAmountRadioButton = mutableStateOf(false)
         private set
 
-    override fun onChangeItemDialogEvent(event: EditInstrumentAmountDialogEvent) {
+    override fun onChangeAmountDialogEvent(event: EditInstrumentAmountDialogEvent) {
         TODO("Not yet implemented")
     }
 
@@ -79,16 +79,17 @@ class InstrumentsViewModel @Inject constructor(
     fun onEvent(event: InstrumentsScreenEvent) {
         when (event) {
             is InstrumentsScreenEvent.OnInstrumentSave -> {
-                if (nameTextField.value.isEmpty()) return
+                if (nameText.value.isEmpty()) return
                 viewModelScope.launch {
                     repository.insertInstrument(
-                        Holder(
-                            InstrumentItem?.id,
-                            nameTextField.value,
-                            phoneNumberTextField.value,
-                            emailTextField.value,
-                            telegramNicknameTextField.value,
-                            whatsappNumberTextField.value
+                        Instrument(
+                            instrumentItem?.id,
+                            nameText.value,
+                            additionalInfoText.value,
+                            freeAmountText.value.toString(),
+                            brokenAmountText.value.toString(),
+                            maxAmountText.value,
+                            decommissionAmountText.value
                         )
                     )
                 }
@@ -99,22 +100,22 @@ class InstrumentsViewModel @Inject constructor(
             }
 
             is InstrumentsScreenEvent.onShowEditDialog -> {
-                InstrumentItem = event.item
+                instrumentItem = event.item
                 openDialog.value = true
-                dialogTitle.value = "Редактировать ${InstrumentItem?.name}"
-                nameTextField.value = InstrumentItem?.name ?: ""
-                phoneNumberTextField.value = InstrumentItem?.phoneNumber ?: ""
+                dialogTitle.value = "Редактировать ${instrumentItem?.name}"
+                nameTextField.value = instrumentItem?.name ?: ""
+                phoneNumberTextField.value = instrumentItem?.phoneNumber ?: ""
             }
 
             is InstrumentsScreenEvent.onShowDeleteDialog -> {
-                InstrumentItem = event.item
+                instrumentItem = event.item
                 openDeleteDialog.value = true
-                dialogTitle.value = "Удалить ${InstrumentItem?.name}?"
+                dialogTitle.value = "Удалить ${instrumentItem?.name}?"
             }
         }
     }
 
-    override fun onEditInstrumentDialogEvent(event: EditHolderDialogEvent) {
+    override fun onEditInstrumentDialogEvent(event: EditInstrumentDialogEvent) {
         when (event) {
             is EditHolderDialogEvent.OnNameChange -> {
                 nameTextField.value = event.name
@@ -161,7 +162,7 @@ class InstrumentsViewModel @Inject constructor(
         when (event) {
             is DeleteDialogEvent.OnConfirm -> {
                 viewModelScope.launch {
-                    InstrumentItem?.let { repository.deleteHolder(it) }
+                    instrumentItem?.let { repository.deleteInstrument(it) }
                 }
                 openDeleteDialog.value = false
             }

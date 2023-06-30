@@ -10,5 +10,5 @@ interface EditInstrumentAmountDialogController {
     val maxAmountRadioButton: MutableState<Boolean>
     val brokenAmountRadioButton: MutableState<Boolean>
     val decommissionAmountRadioButton: MutableState<Boolean>
-    fun onChangeItemDialogEvent(event: EditInstrumentAmountDialogEvent)
+    fun onChangeAmountDialogEvent(event: EditInstrumentAmountDialogEvent)
 }
