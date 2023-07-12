@@ -7,7 +7,6 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
-import ru.rayanis.instroy.data.holder.Holder
 import ru.rayanis.instroy.data.instrument.Instrument
 import ru.rayanis.instroy.data.instrument.InstrumentRepository
 import ru.rayanis.instroy.dialog.delete_dialog.DeleteDialogController
@@ -31,13 +30,17 @@ class InstrumentsViewModel @Inject constructor(
     private val _uiEvent = Channel<UiEvent>()
     val uiEvent = _uiEvent.receiveAsFlow()
 
-    private var instrumentItem: Holder? = null
+    private var instrumentItem: Instrument? = null
 
     override var openDeleteDialog = mutableStateOf(false)
         private set
     override var openDialog = mutableStateOf(false)
         private set
-    override var dialogTitle = mutableStateOf("Данные ответственного")
+    override var dialogTitle = mutableStateOf("")
+        private set
+    override var openAmountDialog = mutableStateOf(false)
+        private set
+    override var amountDialogTitle = mutableStateOf("")
         private set
     override var quantityText = mutableStateOf(0)
         private set
@@ -51,10 +54,10 @@ class InstrumentsViewModel @Inject constructor(
         private set
 
     override fun onChangeAmountDialogEvent(event: EditInstrumentAmountDialogEvent) {
-        TODO("Not yet implemented")
+
     }
 
-    override var nameText = mutableStateOf("")
+    override var instrumentNameText = mutableStateOf("")
         private set
     override var additionalInfoText = mutableStateOf("")
         private set
@@ -71,23 +74,18 @@ class InstrumentsViewModel @Inject constructor(
     override var showInstrumentHistoryButton = mutableStateOf(false)
         private set
 
-    override fun onEditInstrumentDialogEvent(event: EditInstrumentDialogEvent) {
-        TODO("Not yet implemented")
-    }
-
-
     fun onEvent(event: InstrumentsScreenEvent) {
         when (event) {
             is InstrumentsScreenEvent.OnInstrumentSave -> {
-                if (nameText.value.isEmpty()) return
+                if (instrumentNameText.value.isEmpty()) return
                 viewModelScope.launch {
                     repository.insertInstrument(
                         Instrument(
                             instrumentItem?.id,
-                            nameText.value,
+                            instrumentNameText.value,
                             additionalInfoText.value,
-                            freeAmountText.value.toString(),
-                            brokenAmountText.value.toString(),
+                            freeAmountText.value,
+                            brokenAmountText.value,
                             maxAmountText.value,
                             decommissionAmountText.value
                         )
@@ -101,16 +99,19 @@ class InstrumentsViewModel @Inject constructor(
 
             is InstrumentsScreenEvent.onShowEditDialog -> {
                 instrumentItem = event.item
-                openDialog.value = true
-                dialogTitle.value = "Редактировать ${instrumentItem?.name}"
-                nameTextField.value = instrumentItem?.name ?: ""
-                phoneNumberTextField.value = instrumentItem?.phoneNumber ?: ""
+                openAmountDialog.value = true
+                amountDialogTitle.value = "Редактировать ${instrumentItem?.name}"
+                instrumentNameText.value = instrumentItem?.name ?: ""
+                additionalInfoText.value = instrumentItem?.additionalInfo ?: ""
+                freeAmountText.value = instrumentItem?.freeAmount ?: 0
+                brokenAmountText.value = instrumentItem?.brokenAmount ?: 0
+
             }
 
             is InstrumentsScreenEvent.onShowDeleteDialog -> {
                 instrumentItem = event.item
                 openDeleteDialog.value = true
-                dialogTitle.value = "Удалить ${instrumentItem?.name}?"
+                amountDialogTitle.value = "Удалить ${instrumentItem?.name}?"
             }
         }
     }
@@ -139,7 +140,7 @@ class InstrumentsViewModel @Inject constructor(
 
             is EditHolderDialogEvent.OnSave -> {
                 onEvent(InstrumentsScreenEvent.OnInstrumentSave)
-                openDialog.value = false
+                openAmountDialog.value = false
                 nameTextField.value = ""
                 phoneNumberTextField.value = ""
                 emailTextField.value = ""
@@ -148,7 +149,7 @@ class InstrumentsViewModel @Inject constructor(
             }
 
             is EditHolderDialogEvent.OnCancel -> {
-                openDialog.value = false
+                openAmountDialog.value = false
                 nameTextField.value = ""
                 phoneNumberTextField.value = ""
                 emailTextField.value = ""

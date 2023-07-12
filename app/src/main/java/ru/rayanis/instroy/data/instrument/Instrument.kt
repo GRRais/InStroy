@@ -8,9 +8,9 @@ data class Instrument(
     @PrimaryKey
     val id: Int? = null,
     val name: String,
-    val instrumentInfo: String,
-    val freeAmount: String,
-    val maxAmount: String,
+    val additionalInfo: String,
+    val freeAmount: Int,
+    val maxAmount: Int,
     val brokenAmount: Int,
     val decommissionAmount: Int
 )

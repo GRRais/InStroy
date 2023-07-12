@@ -52,7 +52,7 @@ fun EditInstrumentDialog(
                     )
                     Spacer(modifier = Modifier.height(10.dp))
                     TextField(
-                        value = editInstrumentDialogController.nameText.value,
+                        value = editInstrumentDialogController.instrumentNameText.value,
                         onValueChange = { text ->
                             editInstrumentDialogController.onEditInstrumentDialogEvent(
                                 EditInstrumentDialogEvent.OnNameChange(
@@ -186,7 +186,7 @@ fun EditInstrumentDialog(
             },
             dismissButton = {
                 TextButton(onClick = {
-                    editInstrumentDialogController.onEditHolderDialogEvent(EditHolderDialogEvent.OnCancel)
+                    editInstrumentDialogController.onEditInstrumentDialogEvent(EditInstrumentDialogEvent.OnCancel)
                 }) {
                     Text(text = "Отмена")
                 }
