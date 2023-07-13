@@ -1,7 +1,7 @@
 package ru.rayanis.instroy.dialog.edit_instrument_amount_dialog
 
 sealed class  EditInstrumentAmountDialogEvent {
-    data class OnQuantityChange(val quantity: Int) : EditInstrumentAmountDialogEvent()
+    data class OnQuantityChange(val quantity: String) : EditInstrumentAmountDialogEvent()
     data class OnFreeAmountRadioButtonChange(val pressed: Boolean) :
         EditInstrumentAmountDialogEvent()
 

@@ -19,7 +19,6 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import ru.rayanis.instroy.dialog.edit_holder_dialog.EditHolderDialogEvent
 import ru.rayanis.instroy.dialog.edit_instrument_amount_dialog.EditInstrumentAmountDialogController
 import ru.rayanis.instroy.dialog.edit_instrument_amount_dialog.EditInstrumentAmountDialogEvent
 import ru.rayanis.instroy.ui.theme.DarkText
@@ -27,14 +26,13 @@ import ru.rayanis.instroy.ui.theme.GrayLight
 
 @Composable
 fun EditInstrumentDialog(
-    editInstrumentDialogController: EditInstrumentDialogController,
-    editInstrumentAmountDialogController: EditInstrumentAmountDialogController
+    dialogController: EditInstrumentDialogController
 
 ) {
-    if (editInstrumentDialogController.openDialog.value) {
+    if (dialogController.openDialog.value) {
         AlertDialog(
             onDismissRequest = {
-                editInstrumentDialogController.onEditInstrumentDialogEvent(EditInstrumentDialogEvent.OnCancel)
+                dialogController.onEditInstrumentDialogEvent(EditInstrumentDialogEvent.OnCancel)
             },
             title = null,
             text = {
@@ -43,7 +41,7 @@ fun EditInstrumentDialog(
                         .fillMaxWidth()
                 ) {
                     Text(
-                        text = editInstrumentDialogController.dialogTitle.value,
+                        text = dialogController.dialogTitle.value,
                         style = TextStyle(
                             color = DarkText,
                             fontWeight = FontWeight.Bold,
@@ -52,9 +50,9 @@ fun EditInstrumentDialog(
                     )
                     Spacer(modifier = Modifier.height(10.dp))
                     TextField(
-                        value = editInstrumentDialogController.instrumentNameText.value,
+                        value = dialogController.instrumentNameText.value,
                         onValueChange = { text ->
-                            editInstrumentDialogController.onEditInstrumentDialogEvent(
+                            dialogController.onEditInstrumentDialogEvent(
                                 EditInstrumentDialogEvent.OnNameChange(
                                     text
                                 )
@@ -77,9 +75,9 @@ fun EditInstrumentDialog(
                         )
                     )
                     TextField(
-                        value = editInstrumentDialogController.additionalInfoText.value,
+                        value = dialogController.additionalInfoText.value,
                         onValueChange = { text ->
-                            editInstrumentDialogController.onEditInstrumentDialogEvent(
+                            dialogController.onEditInstrumentDialogEvent(
                                 EditInstrumentDialogEvent.OnAdditionalInfoChange(
                                     text
                                 )
@@ -112,7 +110,7 @@ fun EditInstrumentDialog(
                                 )
                             )
                             Text(
-                                text = editInstrumentDialogController.freeAmountText.value.toString(),
+                                text = dialogController.freeAmountText.value.toString(),
                                 modifier = Modifier.padding(top = 5.dp),
                                 style = TextStyle(
                                     color = DarkText,
@@ -130,7 +128,7 @@ fun EditInstrumentDialog(
                                 )
                             )
                             Text(
-                                text = editInstrumentDialogController.brokenAmountText.value.toString(),
+                                text = dialogController.brokenAmountText.value.toString(),
                                 modifier = Modifier.padding(top = 5.dp),
                                 style = TextStyle(
                                     color = DarkText,
@@ -148,7 +146,7 @@ fun EditInstrumentDialog(
                                 )
                             )
                             Text(
-                                text = editInstrumentDialogController.maxAmountText.value.toString(),
+                                text = dialogController.maxAmountText.value.toString(),
                                 modifier = Modifier.padding(top = 5.dp),
                                 style = TextStyle(
                                     color = DarkText,
@@ -166,7 +164,7 @@ fun EditInstrumentDialog(
                                 )
                             )
                             Text(
-                                text = editInstrumentDialogController.decommissionAmountText.value.toString(),
+                                text = dialogController.decommissionAmountText.value.toString(),
                                 modifier = Modifier.padding(top = 5.dp),
                                 style = TextStyle(
                                     color = DarkText,
@@ -179,14 +177,14 @@ fun EditInstrumentDialog(
             },
             confirmButton = {
                 TextButton(onClick = {
-                    editInstrumentAmountDialogController.onChangeAmountDialogEvent(EditInstrumentAmountDialogEvent.OnSave)
+                    dialogController.onEditInstrumentDialogEvent(EditInstrumentDialogEvent.OnSave)
                 }) {
                     Text(text = "Сохранить")
                 }
             },
             dismissButton = {
                 TextButton(onClick = {
-                    editInstrumentDialogController.onEditInstrumentDialogEvent(EditInstrumentDialogEvent.OnCancel)
+                    dialogController.onEditInstrumentDialogEvent(EditInstrumentDialogEvent.OnCancel)
                 }) {
                     Text(text = "Отмена")
                 }

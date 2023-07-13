@@ -5,7 +5,7 @@ import androidx.compose.runtime.MutableState
 interface EditInstrumentAmountDialogController {
     val openAmountDialog: MutableState<Boolean>
     val amountDialogTitle: MutableState<String>
-    val quantityText: MutableState<Int>
+    val quantityText: MutableState<String>
     val freeAmountRadioButton: MutableState<Boolean>
     val maxAmountRadioButton: MutableState<Boolean>
     val brokenAmountRadioButton: MutableState<Boolean>
