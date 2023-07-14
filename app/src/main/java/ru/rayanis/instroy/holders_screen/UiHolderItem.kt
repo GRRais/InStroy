@@ -68,7 +68,7 @@ fun UiHolderItem(
         //Кнопка удаления
         IconButton(
             onClick = {
-                onEvent(HoldersScreenEvent.onShowDeleteDialog(item))
+                onEvent(HoldersScreenEvent.OnShowDeleteDialog(item))
             },
             modifier = Modifier
                 .constrainAs(deleteButton) {
@@ -93,7 +93,7 @@ fun UiHolderItem(
         //Кнопка редактирования
         IconButton(
             onClick = {
-                onEvent(HoldersScreenEvent.onShowEditDialog(item))
+                onEvent(HoldersScreenEvent.OnShowEditDialog(item))
             },
             modifier = Modifier
                 .constrainAs(editButton) {

@@ -12,8 +12,9 @@ import ru.rayanis.instroy.data.instrument.InstrumentRepository
 import ru.rayanis.instroy.dialog.delete_dialog.DeleteDialogController
 import ru.rayanis.instroy.dialog.delete_dialog.DeleteDialogEvent
 import ru.rayanis.instroy.dialog.edit_holder_dialog.EditHolderDialogEvent
-import ru.rayanis.instroy.dialog.edit_instrument_amount_dialog.EditInstrumentAmountDialogController
-import ru.rayanis.instroy.dialog.edit_instrument_amount_dialog.EditInstrumentAmountDialogEvent
+import ru.rayanis.instroy.dialog.edit_instrument_amount_dialog.ChangeInstrumentAmountStatusDialog
+import ru.rayanis.instroy.dialog.edit_instrument_amount_dialog.ChangeInstrumentAmountStatusDialogController
+import ru.rayanis.instroy.dialog.edit_instrument_amount_dialog.ChangeInstrumentAmountStatusDialogEvent
 import ru.rayanis.instroy.dialog.edit_instrument_dialog.EditInstrumentDialogController
 import ru.rayanis.instroy.dialog.edit_instrument_dialog.EditInstrumentDialogEvent
 import ru.rayanis.instroy.utils.UiEvent
@@ -22,7 +23,7 @@ import javax.inject.Inject
 @HiltViewModel
 class InstrumentsViewModel @Inject constructor(
     private val repository: InstrumentRepository
-) : ViewModel(), EditInstrumentDialogController, EditInstrumentAmountDialogController,
+) : ViewModel(), EditInstrumentDialogController, ChangeInstrumentAmountStatusDialogController,
     DeleteDialogController {
 
     val instrumentsList = repository.getAllInstruments()
@@ -34,15 +35,19 @@ class InstrumentsViewModel @Inject constructor(
 
     override var openDeleteDialog = mutableStateOf(false)
         private set
-    override var openDialog = mutableStateOf(false)
+    override var openDialog = mutableStateOf(true)
         private set
-    override var dialogTitle = mutableStateOf("")
+    override var dialogTitle = mutableStateOf("Редактирование")
         private set
     override var openAmountDialog = mutableStateOf(false)
         private set
     override var amountDialogTitle = mutableStateOf("")
         private set
-    override var quantityText = mutableStateOf(0)
+    override var quantityText = mutableStateOf("0")
+        private set
+    override var showRadioButtons = mutableStateOf(false)
+        private set
+    override var showGetReturnInfoTexts = mutableStateOf(false)
         private set
     override var freeAmountRadioButton = mutableStateOf(false)
         private set
@@ -52,10 +57,6 @@ class InstrumentsViewModel @Inject constructor(
         private set
     override var decommissionAmountRadioButton = mutableStateOf(false)
         private set
-
-    override fun onChangeAmountDialogEvent(event: EditInstrumentAmountDialogEvent) {
-
-    }
 
     override var instrumentNameText = mutableStateOf("")
         private set
@@ -93,22 +94,21 @@ class InstrumentsViewModel @Inject constructor(
                 }
             }
 
-            is InstrumentsScreenEvent.onInstrumentClick -> {
+            is InstrumentsScreenEvent.OnInstrumentClick -> {
                 sendUiEvent(UiEvent.Navigate(event.route))
             }
 
-            is InstrumentsScreenEvent.onShowEditDialog -> {
+            is InstrumentsScreenEvent.OnShowEditDialog -> {
                 instrumentItem = event.item
-                openAmountDialog.value = true
+                openDialog.value = true
                 amountDialogTitle.value = "Редактировать ${instrumentItem?.name}"
                 instrumentNameText.value = instrumentItem?.name ?: ""
                 additionalInfoText.value = instrumentItem?.additionalInfo ?: ""
                 freeAmountText.value = instrumentItem?.freeAmount ?: 0
                 brokenAmountText.value = instrumentItem?.brokenAmount ?: 0
-
             }
 
-            is InstrumentsScreenEvent.onShowDeleteDialog -> {
+            is InstrumentsScreenEvent.OnShowDeleteDialog -> {
                 instrumentItem = event.item
                 openDeleteDialog.value = true
                 amountDialogTitle.value = "Удалить ${instrumentItem?.name}?"
@@ -118,43 +118,62 @@ class InstrumentsViewModel @Inject constructor(
 
     override fun onEditInstrumentDialogEvent(event: EditInstrumentDialogEvent) {
         when (event) {
-            is EditHolderDialogEvent.OnNameChange -> {
-                nameTextField.value = event.name
+            is EditInstrumentDialogEvent.OnNameChange -> {
+                instrumentNameText.value = event.name
             }
 
-            is EditHolderDialogEvent.OnPhoneNumberChange -> {
-                phoneNumberTextField.value = event.phoneNumber
+            is EditInstrumentDialogEvent.OnAdditionalInfoChange -> {
+                additionalInfoText.value = event.addInfotext
             }
 
-            is EditHolderDialogEvent.OnEmailChange -> {
-                emailTextField.value = event.email
+            is EditInstrumentDialogEvent.OnFreeAmountPress -> {
             }
 
-            is EditHolderDialogEvent.OnTelegramNicknameChange -> {
-                telegramNicknameTextField.value = event.telegramNickname
+            is EditInstrumentDialogEvent.OnRepairingAmountPress -> {
             }
 
-            is EditHolderDialogEvent.OnWhatsappNumberChange -> {
-                whatsappNumberTextField.value = event.whatsappNumber
+            is EditInstrumentDialogEvent.OnMaxAmountPress -> {
             }
 
-            is EditHolderDialogEvent.OnSave -> {
+            is EditInstrumentDialogEvent.OnDecommissionAmountPress-> {
+            }
+
+            is EditInstrumentDialogEvent.OnSave -> {
                 onEvent(InstrumentsScreenEvent.OnInstrumentSave)
-                openAmountDialog.value = false
-                nameTextField.value = ""
-                phoneNumberTextField.value = ""
-                emailTextField.value = ""
-                telegramNicknameTextField.value = ""
-                whatsappNumberTextField.value = ""
+                openDialog.value = false
             }
 
-            is EditHolderDialogEvent.OnCancel -> {
-                openAmountDialog.value = false
-                nameTextField.value = ""
-                phoneNumberTextField.value = ""
-                emailTextField.value = ""
-                telegramNicknameTextField.value = ""
-                whatsappNumberTextField.value = ""
+            is EditInstrumentDialogEvent.OnCancel -> {
+                openDialog.value = false
+            }
+        }
+    }
+
+    override fun onChangeInstrumentAmountStatusDialogEvent(event: ChangeInstrumentAmountStatusDialogEvent) {
+        when(event) {
+            is ChangeInstrumentAmountStatusDialogEvent.OnChangeInstrumentQuantity -> {
+
+            }
+            is ChangeInstrumentAmountStatusDialogEvent.OnChangeFreeRadioButton -> {
+
+            }
+            is ChangeInstrumentAmountStatusDialogEvent.OnChangeBrokenRadioButton -> {
+
+            }
+            is ChangeInstrumentAmountStatusDialogEvent.OnChangeDecommissionRadioButton -> {
+
+            }
+            is ChangeInstrumentAmountStatusDialogEvent.OnChangeGetInfoText -> {
+
+            }
+            is ChangeInstrumentAmountStatusDialogEvent.OnChangeReturnInfoText -> {
+
+            }
+            is ChangeInstrumentAmountStatusDialogEvent.OnSave -> {
+
+            }
+            is ChangeInstrumentAmountStatusDialogEvent.OnCancel -> {
+
             }
         }
     }

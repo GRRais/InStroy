@@ -5,7 +5,7 @@ import ru.rayanis.instroy.data.instrument.Instrument
 
 sealed class EditInstrumentDialogEvent {
     data class OnNameChange(val name: String) : EditInstrumentDialogEvent()
-    data class OnAdditionalInfoChange(val text: String) : EditInstrumentDialogEvent()
+    data class OnAdditionalInfoChange(val addInfotext: String) : EditInstrumentDialogEvent()
     data class OnFreeAmountPress(val instrument: Instrument) : EditInstrumentDialogEvent()
     data class OnRepairingAmountPress(val instrumentHistoryItem: HistoryItem) :
         EditInstrumentDialogEvent()

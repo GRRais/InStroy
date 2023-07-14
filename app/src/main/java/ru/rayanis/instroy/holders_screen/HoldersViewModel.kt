@@ -63,11 +63,11 @@ class HoldersViewModel @Inject constructor(
                 }
             }
 
-            is HoldersScreenEvent.onHolderClick -> {
+            is HoldersScreenEvent.OnHolderClick -> {
                 sendUiEvent(UiEvent.Navigate(event.route))
             }
 
-            is HoldersScreenEvent.onShowEditDialog -> {
+            is HoldersScreenEvent.OnShowEditDialog -> {
                 holderItem = event.item
                 openDialog.value = true
                 dialogTitle.value = "Редактировать ${holderItem?.name}"
@@ -78,7 +78,7 @@ class HoldersViewModel @Inject constructor(
                 whatsappNumberText.value = holderItem?.whatsappNumber ?: ""
             }
 
-            is HoldersScreenEvent.onShowDeleteDialog -> {
+            is HoldersScreenEvent.OnShowDeleteDialog -> {
                 holderItem = event.item
                 openDeleteDialog.value = true
                 dialogTitle.value = "Удалить ${holderItem?.name}?"
